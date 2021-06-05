@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+      
+
+      
+              
+              <form [formGroup]="createuserform" (ngSubmit)="onSubmit()">
+            
+                
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="mb-8">
+                      <label class="form-label" for="formrow-firstname-input">Full name</label>
+                      <input type="text" class="form-control" id="formrow-firstname-input"  formControlName="Name">
+                    </div>
+                  </div>
+                 
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label class="form-label" for="formrow-email-input">Email</label>
+                      <input type="email" class="form-control" id="formrow-email-input"  formControlName="Email">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label class="form-label" for="formrow-password-input">Password</label>
+                      <input type="password" class="form-control" id="formrow-password-input" formControlName="Password">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      
+                   
+                      <input type="checkbox"  formControlName="CanEdit">
+                      <label class="form-label"  style="margin-left:2%;">Can Edit</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                     
+                      <input type="checkbox"  formControlName="CanDelete">
+                      <label class="form-label" style="margin-left:2%;">Can Delete</label>
+                      
+                    </div>
+                  </div>
+                </div>
+
+
+              
+                <div class="mt-4">
+                  <button type="submit" class="btn btn-primary w-md">Submit</button>
+                </div>
+              </form>
+          
+
+      
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Form Layout -->
+
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#fff"
+type="ball-scale-multiple"
+>
+<p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

@@ -1,0 +1,224 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <p class="btn btn-dark"  (click)="windowreload()">Refresh</p>
+          <p class="btn btn-dark" style="float: right;" [routerLink]="['/product/create-product']">+ Add Product</p>
+          <h4 class="card-title">Products</h4>
+      
+    
+          <div class="row mb-md-2">
+            <div class="col-sm-12 col-md-6">
+            
+              <div class="dataTables_length" id="tickets-table_length"><label
+                  class="d-inline-flex align-items-center">Show
+               
+                  <select  id="exampleFormControlSelect1" [(ngModel)]="selectedValue" aria-controls="tickets-table" 
+                  class="form-control form-control-sm mx-2">
+                    <option *ngFor="let quantity of data" [ngValue]="quantity">{{quantity}}</option>
+                  </select> entries</label></div>
+            </div>
+            <!-- Search -->
+            <div class="col-sm-12 col-md-6">
+             
+              <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                  class="d-inline-flex align-items-center">Search:
+                  <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                    aria-controls="tickets-table" [(ngModel)]="term"></label></div>
+            </div>
+            <!-- End search -->
+          </div>
+          <!-- Table -->
+        <!-- Table -->
+        <div class="table-responsive">
+          <table id="basic-datatable" class="table table-bordered dt-responsive nowrap w-100 datatables">
+            <thead>
+              <tr>
+                <th sortable="i" (click)="Sort('i')">#</th>
+                <th sortable="title" (click)="Sort('title')">Title</th>
+                <th sortable="description" (click)="Sort('description')">Description</th>
+                <th  sortable="price" (click)="Sort('price')" >Price</th>
+                <th sortable="productCode" (click)="Sort('productCode')">SKU</th>
+                <th>Image</th>
+                <th *ngIf="loggedinuser.CanDelete||loggedinuser.CanEdit">Action</th>
+                <!-- <th sortable="age" (sort)="onSort($event)">Age</th> -->
+              
+              </tr>
+            </thead>
+            <tbody *ngFor="let item of userdata|filter:term|orderBy:key :reverse |paginate:{itemsPerPage:selectedValue,currentPage:p}; let i=index;" >
+              <tr >
+                    <td>{{i+1}}</td>
+                <td>
+               
+                  {{(item.Title.length>20)? (item.Title | slice:0:420)+'..':(item.Title) }}
+              
+                </td>
+                <td>
+                  {{(item.Description.length>70)? (item.Description | slice:0:70)+'..':(item.Description) }}
+                
+              
+                </td>
+                <td>
+                  {{item.Price}}
+              
+                </td>
+                <td>
+                  {{item.ProductCode}}
+                </td>
+                <td *ngIf="item.ImageUrl!==null"><a [href]="item.ImageUrl" target="_blank"><img [src]="item.ImageUrl" style="height: 40px;width: 50px;" /></a></td>
+                <td *ngIf="item.ImageUrl===null">No Image</td>
+              
+                
+          <td *ngIf="loggedinuser.CanDelete||loggedinuser.CanEdit">
+            <a *ngIf="loggedinuser.CanEdit" class="btn btn-outline-secondary btn-sm edit" style="margin-left: 5px;" (click)="scrollModal(editproduct,item.id)" title="Edit">
+              <i class="fas fa-pencil-alt" title="Edit"></i>
+          </a>
+            <a *ngIf="loggedinuser.CanDelete" class="btn btn-outline-danger btn-sm edit" (click)="Delete(item.id)" style="margin-left: 5px;">
+              <i class="uil-trash-alt"></i>
+            </a >
+            <a *ngIf="loggedinuser.CanEdit" class="btn btn-outline-primary btn-sm edit" (click)="fileupdate(fileuploadm,item.id)" style="margin-left: 5px;">
+              <i class="uil-file-upload"></i>
+            </a >
+            <!-- <a class="btn btn-outline-success btn-sm edit" (click)="ProducDetails(Details,item.id)" title="Details" >
+              <i class="uil-users-alt"></i>
+          </a > -->
+            <!-- <a class="btn btn-outline-success btn-sm edit" (click)="CompanyDetails(Details,item.customers)" title="Details" >
+              <i class="uil-users-alt"></i>
+          </a >
+         
+       
+        
+     
+        <a  class="btn btn-outline-danger btn-sm edit"class="btn btn-outline-info btn-sm edit" (click)="CompanyInfo(item)" title="View Profile" style="margin-left: 5px;">
+          <i class="uil-eye"></i>
+      </a >
+        <a class="btn btn-outline-danger btn-sm edit"(click)="Createlink(Create1,item.companies.companyId)" title="Link" style="margin-left: 5px;">
+            <i class="uil-share-alt" title="Share With Others"></i>
+        </a > -->
+    
+            
+          </td>                 
+              
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- End table -->
+        <div class="row justify-content-md-between align-items-md-center mt-2">
+          <div class="col-sm-12 col-md-5">
+            
+          </div>
+          <!-- Pagination -->
+          <div class="col-sm-12 col-md-5">
+            <div class="text-md-end float-md-end pagination-rounded ">
+           
+ <pagination-controls (pageChange)="p=$event" aria-label="Default pagination" style="background: #0f1010!important;"></pagination-controls> 
+ </div>
+          </div>
+          <!-- End Pagination -->
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #editproduct let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Edit product</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="Updateproduct">
+                                  
+
+      <div class="row">                                                            
+          <div class="col-md-6">
+              <div class="mb-3">
+                  <label class="form-label" for="formrow-email-input">Title</label>
+                  <input type="text" class="form-control" formControlName="Title"  id="formrow-email-input">
+                  <input type="hidden" class="form-control" formControlName="id"  id="formrow-email-input">
+                  <input type="hidden" class="form-control" formControlName="ImageUrl"  id="formrow-email-input">
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="mb-3">
+                  <label class="form-label" for="formrow-password-input">SKU</label>
+                  <input type="text" formControlName="ProductCode"  class="form-control" id="formrow-password-input">
+              </div>
+          </div>   
+         
+      </div>
+       
+      <div class="row">                                                            
+       
+          <div class="col-md-8">
+              <div class="mb-3">
+                  <label class="form-label" for="formrow-password-input">Description</label>
+                  <textarea [(ngModel)]="description" formControlName="Description"  class="form-control" rows="5"></textarea>
+              </div>
+          </div>
+          <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label" for="formrow-password-input">Price</label>
+                <input type="number" formControlName="Price"  class="form-control" id="formrow-password-input">
+            </div>
+        </div>
+          
+      </div>
+    
+      <!-- <div class="mt-4">
+          <button type="submit" class="btn btn-primary w-md" (click)="Submitproduct()">Submit</button>
+      </div> -->
+  </form>
+     </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="updateproduct()" >Save changes</button>
+  </div>
+</ng-template>
+
+<ng-template #fileuploadm let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Edit product</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+
+    </button>
+  </div>
+  <div class="modal-body">
+    
+                                  
+
+      <div class="row">                                                            
+        <div class="col-md-8">
+          <br>
+          <div class="mb-3">
+              <label class="form-label">File:</label>
+             
+              <input type="file" class="form-control" (change)="upload($event)" accept=".png,.jpg" />
+          
+          </div>
+      </div>
+         
+      </div>
+       
+     
+    
+     
+     </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="updateimage()" >Upload</button>
+  </div>
+</ng-template>
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

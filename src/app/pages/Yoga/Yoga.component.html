@@ -1,0 +1,209 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- <p class="btn btn-info"  (click)="windowreload()">Refresh</p> -->
+          <!-- <p class="btn btn-info" style="float: right;" [routerLink]="['/admin/create-user']">+ Add Admin</p> -->
+         
+          <h4 class="card-title">Groups</h4>
+      
+    
+          <div class="row mb-md-2">
+            <div class=" col-md-6">
+
+              <div class="dataTables_length" id="tickets-table_length"><label
+                  class="d-inline-flex align-items-center">Show
+               
+                  <select  id="exampleFormControlSelect1" [(ngModel)]="selectedValue" aria-controls="tickets-table" 
+                  class="form-control form-control-sm mx-2">
+                    <option *ngFor="let quantity of data" [ngValue]="quantity">{{quantity}}</option>
+                  </select> entries</label></div>
+     
+            </div>
+            <!-- Search -->
+            
+            <div class="col-md-6">
+              <p class="btn btn-dark" style="float: right;" (click)="adminmodal(AddAdmin)">+ Add video</p> 
+              <br>
+          
+            </div>
+            <div class="col-sm-12 col-md-12">
+ 
+      
+              <div id="tickets-table_filter" class="dataTables_filter text-md-end" style="float: right;"><label
+                  class="d-inline-flex align-items-center"> Search:
+                  <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                    aria-controls="tickets-table" [(ngModel)]="term"></label></div>
+            </div>
+            <!-- End search -->
+          </div>
+          <!-- Table -->
+        <!-- Table -->
+        <div class="table-responsive">
+          <table id="basic-datatable" class="table table-bordered dt-responsive nowrap w-100 datatables">
+            <thead>
+              <tr>
+                <th sortable="i" (click)="Sort('i')">#</th>
+                <th sortable="heading" (click)="Sort('name')">Name</th>
+                <th sortable="detail" (click)="Sort('key')">Key</th>  
+                <th sortable="memberscount" (click)="Sort('details')">Description</th>
+                
+                <th *ngIf="loggedinuser.CanDelete||loggedinuser.CanEdit">Action</th>
+               
+               
+              
+              </tr>
+            </thead>
+            <tbody *ngFor="let item of yoga|filter:term|orderBy:key :reverse |paginate:{itemsPerPage:selectedValue,currentPage:p}; let i=index;" >
+              <tr >
+                    <td>{{i+1}}</td>
+                <td>
+                  {{item.name}}
+              
+                </td>
+                <td>
+                  {{item.key}}
+              
+                </td>
+                <td>
+                 
+                  {{(item.details.length>100)? (item.details | slice:0:100)+'..':(item.details) }}
+              
+                </td>
+            
+                <td *ngIf="loggedinuser.CanDelete||loggedinuser.CanEdit">
+                  <a *ngIf="loggedinuser.CanEdit" class="btn btn-outline-secondary btn-sm edit" style="margin-left: 5px;" (click)="editmodal(editgroupdata,item.id)" title="Edit">
+                    <i class="fas fa-pencil-alt" title="Edit"></i>
+                </a>
+                  <a *ngIf="loggedinuser.CanDelete" class="btn btn-outline-danger btn-sm edit" (click)="Delete(item.id)" style="margin-left: 5px;">
+                    <i class="uil-trash-alt"></i>
+                  </a >
+                
+                  <!-- <a class="btn btn-outline-success btn-sm edit" (click)="ProducDetails(Details,item.id)" title="Details" >
+                    <i class="uil-users-alt"></i>
+                </a > -->
+                  <!-- <a class="btn btn-outline-success btn-sm edit" (click)="CompanyDetails(Details,item.customers)" title="Details" >
+                    <i class="uil-users-alt"></i>
+                </a >
+               
+             
+              
+           
+              <a  class="btn btn-outline-danger btn-sm edit"class="btn btn-outline-info btn-sm edit" (click)="CompanyInfo(item)" title="View Profile" style="margin-left: 5px;">
+                <i class="uil-eye"></i>
+            </a >
+              <a class="btn btn-outline-danger btn-sm edit"(click)="Createlink(Create1,item.companies.companyId)" title="Link" style="margin-left: 5px;">
+                  <i class="uil-share-alt" title="Share With Others"></i>
+              </a > -->
+          
+                  
+                </td>                 
+                    
+                
+        
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- End table -->
+        <div class="row justify-content-md-between align-items-md-center mt-2">
+          <div class="col-sm-12 col-md-5">
+            
+          </div>
+          <!-- Pagination -->
+          <div class="col-sm-12 col-md-5">
+            <div class="text-md-end float-md-end pagination-rounded">
+           
+ <pagination-controls (pageChange)="p=$event" aria-label="Default pagination"></pagination-controls> 
+ </div>
+          </div>
+          <!-- End Pagination -->
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #AddAdmin let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Edit Group</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+
+    </button>
+  </div>
+  <div class="modal-body">
+    
+                                  
+
+    <app-createvideo></app-createvideo>
+     
+    
+     
+     </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    
+  </div>
+</ng-template>
+
+<ng-template #editgroupdata let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Edit Data</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editVideo">
+                                
+
+      <div class="row">                                                            
+          <div class="col-md-8">
+              <div class="mb-3">
+                  <label class="form-label" for="formrow-email-input">Name</label>
+                  <input type="text" class="form-control" formControlName="name"  id="formrow-email-input">
+              </div>
+          </div>
+          <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label" >Key</label>
+                <input type="text" class="form-control" formControlName="key"  id="formrow-email-input">
+            </div>
+        </div>
+        
+      </div>
+   
+       
+      <div class="row">                                                            
+        
+          <div class="col-md-12">
+              <div class="mb-3">
+                  <label class="form-label" for="formrow-password-input">Description</label>
+                  <textarea required="" formControlName="details"  class="form-control" rows="5"></textarea>
+              </div>
+          </div>
+         
+      </div>
+    
+    
+  </form>
+
+
+     </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="updatedata()" >Save changes</button>
+  </div>
+</ng-template>
+
+
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#fff"
+type="ball-scale-multiple"
+>
+<p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

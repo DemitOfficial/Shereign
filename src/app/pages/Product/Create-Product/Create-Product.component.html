@@ -1,0 +1,109 @@
+<!-- <label for="file">File:</label>
+<input type="file" (change)="upload($event)" accept=".png,.jpg" />
+<button (click)="uploadImage()">Upload Image</button> -->
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0">Product</h4>
+
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Products</a></li>
+                        <li class="breadcrumb-item active">Add Product</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Add  Product</h4>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="mt-4">
+                                <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Add New Product </h5>
+                                <form [formGroup]="Createproduct">
+                                  
+
+                                    <div class="row">                                                            
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="formrow-email-input">Title</label>
+                                                <input type="text" class="form-control" formControlName="Title"  id="formrow-email-input">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="formrow-password-input">SKU</label>
+                                                <input type="text" formControlName="ProductCode"  class="form-control" id="formrow-password-input">
+                                            </div>
+                                        </div>    <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="formrow-password-input">Price</label>
+                                                <input type="number" formControlName="Price"  class="form-control" id="formrow-password-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                     
+                                    <div class="row">                                                            
+                                      
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="formrow-password-input">Description</label>
+                                                <textarea required="" formControlName="Description"  class="form-control" rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">    <br>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="formrow-password-input">Url</label>
+                                                <input type="text" formControlName="url"  class="form-control" >
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <br>
+                                            <div class="mb-3">
+                                                <label class="form-label">File:</label>
+                                               
+                                                <input type="file" class="form-control" (change)="upload($event)" accept=".png,.jpg" />
+                                                <!-- <dropzone class="dropzone" [message]="message"></dropzone> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+                                    <div class="mt-4">
+                                        <button type="submit" class="btn btn-primary w-md" (click)="Submitproduct()">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                 
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Form Layout -->
+
+  
+    
+</div>
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#fff"
+type="ball-scale-multiple"
+>
+<p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

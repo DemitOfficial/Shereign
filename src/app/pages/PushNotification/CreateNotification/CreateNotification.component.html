@@ -1,0 +1,70 @@
+
+<div class="container-fluid">
+
+  <!-- start page title -->
+ 
+  <!-- end page title -->
+
+
+  <div class="row">
+      <div class="col-lg-8" style="left: 18%;">
+        <div class="card">
+          <div class="card-body">
+            <!-- <p class="btn btn-info"  (click)="windowreload()">Refresh</p> -->
+            <!-- <p class="btn btn-info" style="float: right;" [routerLink]="['/admin/create-user']">+ Add Admin</p> -->
+           
+            <h4 class="card-title">Notifications</h4>
+                 
+            <div class="row">
+              <div class="col-lg-12">
+                  <div class="mt-4">
+                      
+                        
+
+                          <div class="row">                                                            
+                              <div class="col-md-6">
+                                  <div class="mb-3">
+                                      <label class="form-label" for="formrow-email-input">Title</label>
+                                      <input type="text" class="form-control" [(ngModel)]="title" placeholder="Enter Title Here" >
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" >Text</label>
+                                    <input type="text" class="form-control"  [(ngModel)]="text" placeholder="Enter Text Here" >
+                                </div>
+                            </div>
+                            
+                          </div>
+                       
+                           
+                  
+                          <div class="mt-4">
+                              <button type="submit" class="btn btn-primary w-md" style="float: right;" (click)="send()">Submit</button>
+                          </div>
+                    
+                  </div>
+              </div>
+          
+          </div>
+
+            </div>
+            </div>
+
+            
+           
+      </div>
+  </div>
+  <!-- End Form Layout -->
+
+
+  
+</div>
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#fff"
+type="ball-scale-multiple"
+>
+<p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

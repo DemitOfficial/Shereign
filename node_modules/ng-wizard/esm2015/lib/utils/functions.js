@@ -1,0 +1,14 @@
+// https://gist.github.com/ahtcx/0cd94e62691f539160b32ecda18af3d6
+// Merge a `source` object to a `target` recursively
+export function merge(target, source) {
+    // Iterate through `source` properties and if an `Object` set property to merge of `target` and `source` properties
+    for (let key of Object.keys(source)) {
+        if (source[key] instanceof Object && key in target) {
+            Object.assign(source[key], merge(target[key], source[key]));
+        }
+    }
+    // Join `target` and modified `source`
+    Object.assign(target || {}, source);
+    return target;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZnVuY3Rpb25zLmpzIiwic291cmNlUm9vdCI6Im5nOi8vbmctd2l6YXJkLyIsInNvdXJjZXMiOlsibGliL3V0aWxzL2Z1bmN0aW9ucy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxpRUFBaUU7QUFDakUsb0RBQW9EO0FBQ3BELE1BQU0sVUFBVSxLQUFLLENBQUMsTUFBVyxFQUFFLE1BQVc7SUFDMUMsbUhBQW1IO0lBQ25ILEtBQUssSUFBSSxHQUFHLElBQUksTUFBTSxDQUFDLElBQUksQ0FBQyxNQUFNLENBQUMsRUFBRTtRQUNqQyxJQUFJLE1BQU0sQ0FBQyxHQUFHLENBQUMsWUFBWSxNQUFNLElBQUksR0FBRyxJQUFJLE1BQU0sRUFBRTtZQUNoRCxNQUFNLENBQUMsTUFBTSxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsRUFBRSxLQUFLLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxFQUFFLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLENBQUM7U0FDL0Q7S0FDSjtJQUVELHNDQUFzQztJQUN0QyxNQUFNLENBQUMsTUFBTSxDQUFDLE1BQU0sSUFBSSxFQUFFLEVBQUUsTUFBTSxDQUFDLENBQUM7SUFFcEMsT0FBTyxNQUFNLENBQUM7QUFDbEIsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8vIGh0dHBzOi8vZ2lzdC5naXRodWIuY29tL2FodGN4LzBjZDk0ZTYyNjkxZjUzOTE2MGIzMmVjZGExOGFmM2Q2XHJcbi8vIE1lcmdlIGEgYHNvdXJjZWAgb2JqZWN0IHRvIGEgYHRhcmdldGAgcmVjdXJzaXZlbHlcclxuZXhwb3J0IGZ1bmN0aW9uIG1lcmdlKHRhcmdldDogYW55LCBzb3VyY2U6IGFueSkge1xyXG4gICAgLy8gSXRlcmF0ZSB0aHJvdWdoIGBzb3VyY2VgIHByb3BlcnRpZXMgYW5kIGlmIGFuIGBPYmplY3RgIHNldCBwcm9wZXJ0eSB0byBtZXJnZSBvZiBgdGFyZ2V0YCBhbmQgYHNvdXJjZWAgcHJvcGVydGllc1xyXG4gICAgZm9yIChsZXQga2V5IG9mIE9iamVjdC5rZXlzKHNvdXJjZSkpIHtcclxuICAgICAgICBpZiAoc291cmNlW2tleV0gaW5zdGFuY2VvZiBPYmplY3QgJiYga2V5IGluIHRhcmdldCkge1xyXG4gICAgICAgICAgICBPYmplY3QuYXNzaWduKHNvdXJjZVtrZXldLCBtZXJnZSh0YXJnZXRba2V5XSwgc291cmNlW2tleV0pKTtcclxuICAgICAgICB9XHJcbiAgICB9XHJcblxyXG4gICAgLy8gSm9pbiBgdGFyZ2V0YCBhbmQgbW9kaWZpZWQgYHNvdXJjZWBcclxuICAgIE9iamVjdC5hc3NpZ24odGFyZ2V0IHx8IHt9LCBzb3VyY2UpO1xyXG5cclxuICAgIHJldHVybiB0YXJnZXQ7XHJcbn0iXX0=
